@@ -25,10 +25,7 @@ export default function UserDetails({ match }) {
       setLoading(true);
 
       const response = await api.get(`/users/${userName}`, {
-        params: {
-          // client_id: api.defaults.client_id,
-          // client_secret: api.defaults.client_secret,
-        },
+        params: {},
       });
 
       setDetails(response.data);
@@ -47,8 +44,6 @@ export default function UserDetails({ match }) {
 
       const response = await api.get(`/users/${userName}/repos`, {
         params: {
-          // client_id: api.defaults.client_id,
-          // client_secret: api.defaults.client_secret,
           sort,
           direction: 'desc',
         },
