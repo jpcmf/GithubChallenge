@@ -12,7 +12,7 @@ import LoadingLine from '~/components/LoadingLine';
 
 import { Form, SubmitButton, List } from './styles';
 
-import api from '~/services/api';
+import { api } from '~/services/api';
 
 export default function Repository() {
   const [newUser, setNewUser] = useState('');
