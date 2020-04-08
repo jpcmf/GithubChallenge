@@ -35,7 +35,9 @@ export default function Main() {
 
       setActivedUsers(response.data);
     } catch (err) {
-      console.log(err);
+      toast.error(
+        'There was an error when trying to load the most actived users'
+      );
     } finally {
       setLoading(false);
     }
