@@ -148,25 +148,36 @@ export const List = styled.ul`
         align-items: center;
       }
 
-      img {
-        border-radius: 50%;
-        height: 30px;
-        margin-right: 10px;
-        width: 30px;
+      .most-actived__user {
+        flex: 1;
+
+        img {
+          border-radius: 50%;
+          height: 30px;
+          margin-right: 10px;
+          width: 30px;
+        }
       }
 
-      .most-actived__group {
+      .most-actived__repo-name {
+        align-items: flex-end;
+        background-color: ${colors.secondary};
+        border-radius: 3px;
+        flex-direction: column;
+        margin-right: 20px;
+        padding: 3px 5px;
+        text-align: right;
+
         small {
-          font-size: 10px;
+          color: ${colors.darkGrey};
+          font-size: 12px;
           display: block;
         }
       }
 
       .most-actived__star {
-        display: flex;
-        align-items: center;
         justify-content: space-between;
-        width: 50px;
+        width: 45px;
 
         svg {
           color: ${colors.brand};
