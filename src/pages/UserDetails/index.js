@@ -2,13 +2,13 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import Shimmer from 'react-shimmer-effect';
 
-import { FaUsers, FaStar, FaGitAlt } from 'react-icons/fa';
+import { FaUser, FaStar, FaGitAlt } from 'react-icons/fa';
 
 import Header from '~/components/Header';
 import Container from '~/components/Container';
 import LoadingLine from '~/components/LoadingLine';
 
-import { DetailsWrapper, RepositoriesWrapper, EmptyWrapper } from './styles';
+import { DetailsWrapper, RepositoriesWrapper } from './styles';
 
 import api from '~/services/api';
 
@@ -79,8 +79,8 @@ export default function UserDetails({ match }) {
 
       <Container>
         <h1>
-          <FaUsers />
-          Details
+          <FaUser />
+          About
         </h1>
 
         <DetailsWrapper>

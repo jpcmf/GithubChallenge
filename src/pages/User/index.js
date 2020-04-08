@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Shimmer from 'react-shimmer-effect';
 
-import { FaGithubAlt, FaSpinner, FaSearch } from 'react-icons/fa';
+import { FaUsers, FaSpinner, FaSearch } from 'react-icons/fa';
 
 import Header from '~/components/Header';
 import Container from '~/components/Container';
@@ -62,7 +62,6 @@ export default function Repository() {
       setError(true);
 
       toast.error('There was an error when trying to load users.');
-      toast.warn(err.message);
     } finally {
       setLoading(false);
     }
@@ -116,13 +115,13 @@ export default function Repository() {
 
       <Container>
         <h1>
-          <FaGithubAlt />
+          <FaUsers />
           Users
         </h1>
         <Form onSubmit={handleSubmit} error={error}>
           <input
             type="text"
-            placeholder="Search by username"
+            placeholder="Search by username or full name"
             value={newUser}
             onChange={handleInputChange}
           />
@@ -150,7 +149,15 @@ export default function Repository() {
               <li key={user.id}>
                 <div>
                   <img src={user.avatar_url} alt={user.login} />
-                  <span>{user.login}</span>
+                  <span>
+                    <a
+                      href={user.html_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {user.login}
+                    </a>
+                  </span>
                 </div>
 
                 <Link to={`/users/${user.login}`}>Details</Link>
