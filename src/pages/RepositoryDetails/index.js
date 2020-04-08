@@ -12,7 +12,7 @@ import LoadingLine from '~/components/LoadingLine';
 
 import { DetailsWrapper } from './styles';
 
-import api from '~/services/api';
+import { api } from '~/services/api';
 
 export default function RepositoryDetails() {
   const { owner, repo } = useParams();

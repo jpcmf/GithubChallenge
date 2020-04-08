@@ -10,7 +10,7 @@ import LoadingLine from '~/components/LoadingLine';
 
 import { DetailsWrapper, RepositoriesWrapper } from './styles';
 
-import api from '~/services/api';
+import { api } from '~/services/api';
 
 export default function UserDetails({ match }) {
   const userName = match.params.id;
