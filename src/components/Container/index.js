@@ -26,6 +26,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: row;
     font-size: 20px;
+    font-weight: 600;
 
     svg {
       color: ${colors.brand};
