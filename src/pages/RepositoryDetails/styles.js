@@ -2,8 +2,6 @@ import styled from 'styled-components';
 
 import colors from '~/styles/colors';
 
-import { device } from '~/styles/device';
-
 export const DetailsWrapper = styled.div`
   align-items: center;
   display: flex;

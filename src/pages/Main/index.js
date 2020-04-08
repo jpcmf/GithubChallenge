@@ -89,11 +89,13 @@ export default function Main() {
       const response = await api.get(
         `/repos/gayanvoice/most-active-github-users-nodejs`
       );
+
+      console.log(response);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   }, []);
 
   useEffect(() => {

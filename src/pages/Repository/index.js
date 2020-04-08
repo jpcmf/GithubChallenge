@@ -50,12 +50,6 @@ export default function Repository() {
         );
       }
 
-      // if (pageNumber) {
-      //   const lastPageNumber = pageNumber;
-
-      //   localStorage.setItem('page', JSON.stringify(lastPageNumber));
-      // }
-
       setRepositories(newRepositories);
 
       setReg(response.data.total_count);
@@ -92,8 +86,6 @@ export default function Repository() {
     e.preventDefault();
 
     loadRepositories(newRepo);
-
-    // setPage(1);
   }
 
   function handleInputChange(e) {

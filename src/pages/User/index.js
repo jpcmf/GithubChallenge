@@ -75,7 +75,6 @@ export default function Repository() {
   useEffect(() => {
     const storage = localStorage.getItem('users');
     const lastSearch = localStorage.getItem('search');
-    // const lastPageNumber = localStorage.getItem('page');
 
     if (storage) {
       setUsers(JSON.parse(storage));
@@ -83,8 +82,6 @@ export default function Repository() {
 
     if (lastSearch) {
       setNewUser(JSON.parse(lastSearch));
-      // setPage(1);
-      // loadUsers(JSON.parse(lastSearch), JSON.parse(lastPageNumber));
     }
   }, []); // eslint-disable-line
 
@@ -92,7 +89,6 @@ export default function Repository() {
     e.preventDefault();
 
     loadUsers(newUser);
-    setPage(1);
   }
 
   function handleInputChange(e) {
