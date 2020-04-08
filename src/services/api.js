@@ -4,4 +4,8 @@ const api = axios.create({
   baseURL: 'https://api.github.com',
 });
 
-export default api;
+const api2 = axios.create({
+  baseURL: 'https://github-trending-api.now.sh/',
+});
+
+export { api, api2 };

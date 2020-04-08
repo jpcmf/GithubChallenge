@@ -34,6 +34,21 @@ const Container = styled.div`
     }
   }
 
+  h5 {
+    font-size: 12px;
+    font-weight: 400;
+    margin-left: 32px;
+    margin-top: 5px;
+    line-height: 20px;
+
+    small {
+      background-color: ${colors.secondary};
+      border-radius: 3px;
+      padding: 5px 10px;
+      font-weight: 500;
+    }
+  }
+
   .title-group {
     align-items: center;
     display: flex;

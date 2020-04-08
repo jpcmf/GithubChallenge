@@ -111,6 +111,9 @@ export const List = styled.ul`
       border-top: solid 1px #eee;
     }
 
+    img {
+    }
+
     a {
       color: ${colors.brand};
       padding: 10px 16px;
@@ -120,6 +123,69 @@ export const List = styled.ul`
       &:hover {
         background-color: ${colors.secondary};
         border-radius: 3px;
+      }
+    }
+
+    button {
+      background-color: transparent;
+      border: 0;
+      color: ${colors.danger};
+      font-size: 12px;
+      padding: 10px 16px;
+      transition: background-color 300ms ease;
+
+      &:hover {
+        background-color: ${colors.secondary};
+        border-radius: 3px;
+      }
+    }
+  }
+
+  &.most-actived {
+    li {
+      > div {
+        display: flex;
+        align-items: center;
+      }
+
+      .most-actived__user {
+        flex: 1;
+
+        img {
+          border-radius: 50%;
+          height: 30px;
+          margin-right: 10px;
+          width: 30px;
+        }
+      }
+
+      .most-actived__repo-name {
+        align-items: flex-end;
+        background-color: ${colors.secondary};
+        border-radius: 3px;
+        flex-direction: column;
+        margin-right: 20px;
+        padding: 3px 5px;
+        text-align: right;
+
+        small {
+          color: ${colors.darkGrey};
+          font-size: 12px;
+          display: block;
+        }
+      }
+
+      .most-actived__star {
+        justify-content: space-between;
+        width: 45px;
+
+        svg {
+          color: ${colors.brand};
+        }
+        span {
+          color: ${colors.darkGrey};
+          font-size: 12px;
+        }
       }
     }
   }
