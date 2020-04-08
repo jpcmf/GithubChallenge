@@ -35,7 +35,9 @@ export default function Main() {
 
       setActivedUsers(response.data);
     } catch (err) {
-      console.log(err);
+      toast.error(
+        'There was an error when trying to load the most actived users'
+      );
     } finally {
       setLoading(false);
     }
@@ -142,7 +144,7 @@ export default function Main() {
               ) : (
                 activedUsers.slice(0, 5).map(item => (
                   <li key={item.name}>
-                    <div>
+                    <div className="most-actived__user">
                       <img src={item.avatar} alt={item.name} />
                       <a
                         href={item.url}
@@ -151,11 +153,12 @@ export default function Main() {
                       >
                         {item.author}
                       </a>
-                      <div className="most-actived__group">
-                        <small>Repository name:</small>
-                        <small>{item.name}</small>
-                      </div>
                     </div>
+                    {item.language ? (
+                      <div className="most-actived__repo-name">
+                        <small>{item.language}</small>
+                      </div>
+                    ) : null}
                     <div className="most-actived__star">
                       <FaStar size={14} />
                       <span>{item.stars}</span>
