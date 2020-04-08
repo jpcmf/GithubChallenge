@@ -111,6 +111,9 @@ export const List = styled.ul`
       border-top: solid 1px #eee;
     }
 
+    img {
+    }
+
     a {
       color: ${colors.brand};
       padding: 10px 16px;
@@ -120,6 +123,58 @@ export const List = styled.ul`
       &:hover {
         background-color: ${colors.secondary};
         border-radius: 3px;
+      }
+    }
+
+    button {
+      background-color: transparent;
+      border: 0;
+      color: ${colors.danger};
+      font-size: 12px;
+      padding: 10px 16px;
+      transition: background-color 300ms ease;
+
+      &:hover {
+        background-color: ${colors.secondary};
+        border-radius: 3px;
+      }
+    }
+  }
+
+  &.most-actived {
+    li {
+      > div {
+        display: flex;
+        align-items: center;
+      }
+
+      img {
+        border-radius: 50%;
+        height: 30px;
+        margin-right: 10px;
+        width: 30px;
+      }
+
+      .most-actived__group {
+        small {
+          font-size: 10px;
+          display: block;
+        }
+      }
+
+      .most-actived__star {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 50px;
+
+        svg {
+          color: ${colors.brand};
+        }
+        span {
+          color: ${colors.darkGrey};
+          font-size: 12px;
+        }
       }
     }
   }

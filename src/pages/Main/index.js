@@ -1,27 +1,49 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Shimmer from 'react-shimmer-effect';
 
 import {
   FaPlus,
-  FaGithubAlt,
+  FaGitAlt,
   FaSpinner,
   FaUsers,
   FaSearch,
+  FaStar,
 } from 'react-icons/fa';
 
 import Header from '../../components/Header';
 import Container from '../../components/Container';
+import LoadingLine from '~/components/LoadingLine';
 
 import { MainWrapper, MainColumns, Form, SubmitButton, List } from './styles';
 
-import api from '../../services/api';
+import { api, api2 } from '../../services/api';
 
 export default function Main() {
   const [newRepo, setNewRepo] = useState('');
   const [repositories, setRepositories] = useState([]);
+  const [activedUsers, setActivedUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  const loadMostActiveUsers = useCallback(async () => {
+    try {
+      setLoading(true);
+
+      const response = await api2.get();
+
+      setActivedUsers(response.data);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadMostActiveUsers();
+  }, [loadMostActiveUsers]);
 
   function handleInputChange(e) {
     setNewRepo(e.target.value);
@@ -82,25 +104,15 @@ export default function Main() {
     }
   }, []);
 
-  const loadMostActiveUsers = useCallback(async () => {
-    try {
-      setLoading(true);
+  function handleDelete(item) {
+    const storage = localStorage.getItem('repositories');
+    const storageArr = JSON.parse(storage);
+    const index = storageArr.findIndex(s => s.id === item.id);
 
-      const response = await api.get(
-        `/repos/gayanvoice/most-active-github-users-nodejs`
-      );
-
-      console.log(response);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    loadMostActiveUsers();
-  }, [loadMostActiveUsers]);
+    storageArr.splice(index, 1);
+    localStorage.setItem('repositories', JSON.stringify(storageArr));
+    setRepositories(storageArr);
+  }
 
   return (
     <>
@@ -120,14 +132,50 @@ export default function Main() {
               <FaUsers />
               Most actived users
             </h1>
+            <List className="most-actived">
+              {loading ? (
+                <li>
+                  <Shimmer>
+                    <LoadingLine />
+                  </Shimmer>
+                </li>
+              ) : (
+                activedUsers.slice(0, 5).map(item => (
+                  <li key={item.name}>
+                    <div>
+                      <img src={item.avatar} alt={item.name} />
+                      <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {item.author}
+                      </a>
+                      <div className="most-actived__group">
+                        <small>Repository name:</small>
+                        <small>{item.name}</small>
+                      </div>
+                    </div>
+                    <div className="most-actived__star">
+                      <FaStar size={14} />
+                      <span>{item.stars}</span>
+                    </div>
+                  </li>
+                ))
+              )}
+            </List>
           </Container>
         </MainColumns>
 
         <Container>
           <h1>
-            <FaGithubAlt />
+            <FaGitAlt />
             Save favorites repositories
           </h1>
+          <h5>
+            You need specify the full name of repository including the owner,
+            for eg. <small>jpcmf/GoBarber</small>
+          </h5>
           <Form onSubmit={handleSubmit} error={error}>
             <input
               type="text"
@@ -150,14 +198,22 @@ export default function Main() {
               repositories.map(repository => (
                 <li key={repository.name}>
                   <span>{repository.name}</span>
-
-                  <Link
-                    to={{
-                      pathname: `/repositories/${repository.full_name}`,
-                    }}
-                  >
-                    Details
-                  </Link>
+                  <div>
+                    <Link
+                      to={{
+                        pathname: `/repositories/${repository.full_name}`,
+                      }}
+                    >
+                      Details
+                    </Link>
+                    <button
+                      className="remove"
+                      type="button"
+                      onClick={() => handleDelete(repository)}
+                    >
+                      Remove
+                    </button>
+                  </div>
                 </li>
               ))}
           </List>
