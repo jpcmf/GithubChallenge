@@ -10,6 +10,14 @@ export const Container = styled.header`
   padding: 0 16px;
   align-items: center;
 
+  .logo {
+    border-right: solid 1px ${colors.lightGrey};
+    color: ${colors.brand};
+    display: flex;
+    margin-right: 16px;
+    padding-right: 16px;
+  }
+
   nav {
     a {
       border-radius: 3px;
