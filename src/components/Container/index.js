@@ -34,6 +34,18 @@ const Container = styled.div`
     }
   }
 
+  h4 {
+    color: ${colors.darkGrey};
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+
+    span {
+      margin-left: 5px;
+    }
+  }
+
   h5 {
     font-size: 12px;
     font-weight: 400;
