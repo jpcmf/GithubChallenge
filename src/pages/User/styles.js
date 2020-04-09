@@ -2,6 +2,8 @@ import styled, { keyframes, css } from 'styled-components';
 
 import colors from '~/styles/colors';
 
+import { device } from '~/styles/device';
+
 export const Form = styled.form`
   margin-top: 30px;
   display: flex;
@@ -78,13 +80,37 @@ export const List = styled.ul`
       height: 30px;
       margin-right: 10px;
       width: 30px;
+
+      @media ${device.laptop} {
+        height: 40px;
+        width: 40px;
+      }
+    }
+
+    > span {
+      display: none;
+
+      @media ${device.mobileL} {
+        display: block;
+      }
     }
 
     a {
+      align-items: center;
       color: ${colors.brand};
+      display: flex;
       padding: 10px 16px;
       text-decoration: none;
       transition: background-color 300ms ease;
+      font-size: 14px;
+
+      @media ${device.laptop} {
+        font-size: inherit;
+      }
+
+      svg {
+        margin: 0 5px;
+      }
 
       &:hover {
         background-color: ${colors.secondary};

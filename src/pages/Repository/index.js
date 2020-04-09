@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Shimmer from 'react-shimmer-effect';
 
-import { FaGitAlt, FaSpinner, FaSearch } from 'react-icons/fa';
+import { FaGitAlt, FaSpinner, FaSearch, FaGithub } from 'react-icons/fa';
 
 import Header from '~/components/Header';
 import Container from '~/components/Container';
@@ -145,24 +145,24 @@ export default function Repository() {
                     src={repository.owner.avatar_url}
                     alt={repository.name}
                   />
-                  <span>
-                    <a
-                      href={repository.html_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {repository.name}
-                    </a>
-                  </span>
+                  <Link
+                    to={{
+                      pathname: `/repositories/${repository.full_name}`,
+                    }}
+                  >
+                    {repository.name}
+                  </Link>
                 </div>
 
-                <Link
-                  to={{
-                    pathname: `/repositories/${repository.full_name}`,
-                  }}
-                >
-                  Details
-                </Link>
+                <span>
+                  <a
+                    href={repository.html_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Visit <FaGithub />
+                  </a>
+                </span>
               </li>
             ))
           )}

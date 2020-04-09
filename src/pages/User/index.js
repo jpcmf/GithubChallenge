@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Shimmer from 'react-shimmer-effect';
 
-import { FaUsers, FaSpinner, FaSearch } from 'react-icons/fa';
+import { FaUsers, FaSpinner, FaSearch, FaGithub } from 'react-icons/fa';
 
 import Header from '~/components/Header';
 import Container from '~/components/Container';
@@ -145,18 +145,18 @@ export default function Repository() {
               <li key={user.id}>
                 <div>
                   <img src={user.avatar_url} alt={user.login} />
-                  <span>
-                    <a
-                      href={user.html_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {user.login}
-                    </a>
-                  </span>
+                  <Link to={`/users/${user.login}`}>{user.login}</Link>
                 </div>
 
-                <Link to={`/users/${user.login}`}>Details</Link>
+                <span>
+                  <a
+                    href={user.html_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Visit <FaGithub />
+                  </a>
+                </span>
               </li>
             ))
           )}
