@@ -15,6 +15,7 @@ export const Form = styled.form`
     flex: 1;
     font-size: 16px;
     padding: 10px 15px;
+    width: 100%;
   }
 `;
 
