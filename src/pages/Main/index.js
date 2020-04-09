@@ -16,7 +16,14 @@ import Header from '../../components/Header';
 import Container from '../../components/Container';
 import LoadingLine from '~/components/LoadingLine';
 
-import { MainWrapper, MainColumns, Form, SubmitButton, List } from './styles';
+import {
+  MainWrapper,
+  MainColumns,
+  Form,
+  SubmitButton,
+  List,
+  ListWrapper,
+} from './styles';
 
 import { api, api2 } from '../../services/api';
 
@@ -24,6 +31,8 @@ export default function Main() {
   const [newRepo, setNewRepo] = useState('');
   const [repositories, setRepositories] = useState([]);
   const [activedUsers, setActivedUsers] = useState([]);
+  const [pastUserSearches, setPastUserSearches] = useState([]);
+  const [pastRepositorySearches, setPastRepositorySearches] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -46,6 +55,10 @@ export default function Main() {
   useEffect(() => {
     loadMostActiveUsers();
   }, [loadMostActiveUsers]);
+
+  useEffect(() => {
+    document.title = 'Github - Home | Pitang Challenge';
+  });
 
   function handleInputChange(e) {
     setNewRepo(e.target.value);
@@ -100,11 +113,25 @@ export default function Main() {
 
   useEffect(() => {
     const storage = localStorage.getItem('repositories');
+    const searchesUserPast = localStorage.getItem('pastUserSearches');
+    const searchesRepositoryPast = localStorage.getItem(
+      'pastRepositorySearches'
+    );
 
     if (storage) {
       setRepositories(JSON.parse(storage));
     }
+
+    if (searchesUserPast) {
+      setPastUserSearches(JSON.parse(searchesUserPast));
+    }
+
+    if (searchesRepositoryPast) {
+      setPastRepositorySearches(JSON.parse(searchesRepositoryPast));
+    }
   }, []);
+
+  //eslint-disable-line
 
   function handleDelete(item) {
     const storage = localStorage.getItem('repositories');
@@ -127,6 +154,59 @@ export default function Main() {
               <FaSearch />
               Last searches
             </h1>
+            <ListWrapper>
+              <List>
+                <li>
+                  <h4>
+                    <FaUsers size={17} /> <span>Users</span>
+                  </h4>
+                </li>
+                {loading ? (
+                  <li>
+                    <Shimmer>
+                      <LoadingLine />
+                    </Shimmer>
+                  </li>
+                ) : (
+                  pastUserSearches.map((item, index) => (
+                    <li key={item}>
+                      <span className="position">{index + 1}</span>
+                      <span className="item">{item}</span>
+                    </li>
+                  ))
+                )}
+
+                {!pastUserSearches.length && !loading && (
+                  <li className="not-found">No searches found.</li>
+                )}
+              </List>
+
+              <List>
+                <li>
+                  <h4>
+                    <FaGitAlt size={17} /> <span>Repositories</span>
+                  </h4>
+                </li>
+                {loading ? (
+                  <li>
+                    <Shimmer>
+                      <LoadingLine />
+                    </Shimmer>
+                  </li>
+                ) : (
+                  pastRepositorySearches.map((item, index) => (
+                    <li key={item}>
+                      <span className="position">{index + 1}</span>
+                      <span className="item">{item}</span>
+                    </li>
+                  ))
+                )}
+
+                {!pastRepositorySearches.length && !loading && (
+                  <li className="not-found">No searches found.</li>
+                )}
+              </List>
+            </ListWrapper>
           </Container>
 
           <Container>

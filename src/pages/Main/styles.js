@@ -96,6 +96,16 @@ export const SubmitButton = styled.button.attrs(props => ({
     `}
 `;
 
+export const ListWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 30px;
+
+  @media ${device.tablet} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+`;
+
 export const List = styled.ul`
   list-style: none;
   margin-top: 30px;
@@ -109,9 +119,6 @@ export const List = styled.ul`
 
     & + li {
       border-top: solid 1px #eee;
-    }
-
-    img {
     }
 
     a {
@@ -138,6 +145,29 @@ export const List = styled.ul`
         background-color: ${colors.secondary};
         border-radius: 3px;
       }
+    }
+
+    .position {
+      align-items: center;
+      background-color: ${colors.secondary};
+      border-radius: 50%;
+      color: ${colors.darkGrey};
+      display: flex;
+      flex: none;
+      font-size: 12px;
+      font-weight: 500;
+      height: 25px;
+      justify-content: center;
+      width: 25px;
+    }
+
+    .item {
+      color: ${colors.brand};
+      text-align: right;
+    }
+
+    &.not-found {
+      font-size: 12px;
     }
   }
 
@@ -167,6 +197,11 @@ export const List = styled.ul`
         margin-right: 20px;
         padding: 3px 5px;
         text-align: right;
+        display: none;
+
+        @media ${device.laptop} {
+          display: block;
+        }
 
         small {
           color: ${colors.darkGrey};
