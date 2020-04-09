@@ -86,6 +86,20 @@ export default function Repository() {
     e.preventDefault();
 
     loadRepositories(newRepo);
+
+    const maxHistoryLenght = 5;
+    const pastSearchesStorage = JSON.parse(
+      localStorage.getItem('pastRepositorySearches')
+    );
+    const history = pastSearchesStorage || [];
+    const isHistoryMaxed = history.length === maxHistoryLenght;
+    const workingHistory = isHistoryMaxed ? history.slice(1) : history;
+    const updatedHistory = workingHistory.concat(newRepo);
+
+    localStorage.setItem(
+      'pastRepositorySearches',
+      JSON.stringify(updatedHistory)
+    );
   }
 
   function handleInputChange(e) {

@@ -52,6 +52,10 @@ export default function RepositoryDetails() {
     }
   }, []);
 
+  useEffect(() => {
+    document.title = 'Github - Repository Details | Pitang Challenge';
+  });
+
   return (
     <>
       <Header />

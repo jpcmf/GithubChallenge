@@ -64,6 +64,10 @@ export default function UserDetails({ match }) {
     loadRepositories();
   }, [loadRepositories, loadUserDetails]);
 
+  useEffect(() => {
+    document.title = 'Github - User Details | Pitang Challenge';
+  });
+
   function handleOrder(value) {
     setSort(value);
   }
