@@ -68,7 +68,7 @@ export default function Repository() {
   }, []);
 
   useEffect(() => {
-    document.title = 'Github - Users';
+    document.title = 'Github - Users | Pitang Challenge';
     window.scrollTo(0, 0);
   });
 
@@ -89,6 +89,17 @@ export default function Repository() {
     e.preventDefault();
 
     loadUsers(newUser);
+
+    const maxHistoryLenght = 5;
+    const pastSearchesStorage = JSON.parse(
+      localStorage.getItem('pastUserSearches')
+    );
+    const history = pastSearchesStorage || [];
+    const isHistoryMaxed = history.length === maxHistoryLenght;
+    const workingHistory = isHistoryMaxed ? history.slice(1) : history;
+    const updatedHistory = workingHistory.concat(newUser);
+
+    localStorage.setItem('pastUserSearches', JSON.stringify(updatedHistory));
   }
 
   function handleInputChange(e) {
