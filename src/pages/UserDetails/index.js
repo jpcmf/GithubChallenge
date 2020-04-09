@@ -1,8 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Shimmer from 'react-shimmer-effect';
 
-import { FaUser, FaStar, FaGitAlt } from 'react-icons/fa';
+import { FaUser, FaStar, FaGitAlt, FaAngleLeft } from 'react-icons/fa';
 
 import Header from '~/components/Header';
 import Container from '~/components/Container';
@@ -77,10 +78,17 @@ export default function UserDetails({ match }) {
       <Header />
 
       <Container>
-        <h1>
-          <FaUser />
-          About
-        </h1>
+        <div className="title-back">
+          <h1>
+            <FaUser />
+            About
+          </h1>
+          <div className="filter">
+            <Link to="/users">
+              <FaAngleLeft size={30} />
+            </Link>
+          </div>
+        </div>
 
         <DetailsWrapper>
           <div>

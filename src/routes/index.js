@@ -13,10 +13,10 @@ export default function Routes() {
       <Route path="/" exact component={Main} />
 
       <Route path="/users" exact component={User} />
-      <Route path="/users/:id" component={UserDetails} />
+      <Route path="/user/:id" component={UserDetails} />
 
       <Route path="/repositories" exact component={Repository} />
-      <Route path="/repositories/:owner/:repo" component={RepositoryDetails} />
+      <Route path="/repository/:owner/:repo" component={RepositoryDetails} />
     </Switch>
   );
 }

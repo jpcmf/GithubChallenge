@@ -24,45 +24,55 @@ export default function Repository() {
   const [reg, setReg] = useState(null);
   const [q, setQ] = useState(''); // eslint-disable-line
 
-  const loadRepositories = useCallback(async (search, pageNumber = 1) => {
-    try {
-      setLoading(true);
+  const loadRepositories = useCallback(
+    async (search, pageNumber = 1) => {
+      try {
+        setLoading(true);
 
-      const response = await api.get('/search/repositories', {
-        params: {
-          q: search,
-          page: pageNumber,
-        },
-      });
+        if (newRepo === '') {
+          throw new Error('You need add a repository name.');
+        }
 
-      const data = response.data.items;
+        const response = await api.get('/search/repositories', {
+          params: {
+            q: search,
+            page: pageNumber,
+          },
+        });
 
-      const newRepositories = data;
+        const data = response.data.items;
 
-      localStorage.setItem('newRepositories', JSON.stringify(newRepositories));
-
-      if (search) {
-        const lastSearch = search;
+        const newRepositories = data;
 
         localStorage.setItem(
-          'lastRepositorySearch',
-          JSON.stringify(lastSearch)
+          'newRepositories',
+          JSON.stringify(newRepositories)
         );
+
+        if (search) {
+          const lastSearch = search;
+
+          localStorage.setItem(
+            'lastRepositorySearch',
+            JSON.stringify(lastSearch)
+          );
+        }
+
+        setRepositories(newRepositories);
+
+        setReg(response.data.total_count);
+
+        setError(false);
+      } catch (err) {
+        setError(true);
+
+        toast.error('There was an error when trying to load users.');
+      } finally {
+        setLoading(false);
       }
-
-      setRepositories(newRepositories);
-
-      setReg(response.data.total_count);
-
-      setError(false);
-    } catch (err) {
-      setError(true);
-
-      toast.error('There was an error when trying to load users.');
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+    },
+    [newRepo]
+  );
 
   useEffect(() => {
     document.title = 'Github - Repositories';
@@ -87,19 +97,21 @@ export default function Repository() {
 
     loadRepositories(newRepo);
 
-    const maxHistoryLenght = 5;
-    const pastSearchesStorage = JSON.parse(
-      localStorage.getItem('pastRepositorySearches')
-    );
-    const history = pastSearchesStorage || [];
-    const isHistoryMaxed = history.length === maxHistoryLenght;
-    const workingHistory = isHistoryMaxed ? history.slice(1) : history;
-    const updatedHistory = workingHistory.concat(newRepo);
+    if (newRepo) {
+      const maxHistoryLenght = 5;
+      const pastSearchesStorage = JSON.parse(
+        localStorage.getItem('pastRepositorySearches')
+      );
+      const history = pastSearchesStorage || [];
+      const isHistoryMaxed = history.length === maxHistoryLenght;
+      const workingHistory = isHistoryMaxed ? history.slice(1) : history;
+      const updatedHistory = workingHistory.concat(newRepo);
 
-    localStorage.setItem(
-      'pastRepositorySearches',
-      JSON.stringify(updatedHistory)
-    );
+      localStorage.setItem(
+        'pastRepositorySearches',
+        JSON.stringify(updatedHistory)
+      );
+    }
   }
 
   function handleInputChange(e) {
@@ -161,7 +173,7 @@ export default function Repository() {
                   />
                   <Link
                     to={{
-                      pathname: `/repositories/${repository.full_name}`,
+                      pathname: `/repository/${repository.full_name}`,
                     }}
                   >
                     {repository.name}

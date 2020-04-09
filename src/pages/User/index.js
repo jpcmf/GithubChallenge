@@ -24,48 +24,55 @@ export default function Repository() {
   const [reg, setReg] = useState(null);
   const [q, setQ] = useState(''); // eslint-disable-line
 
-  const loadUsers = useCallback(async (search, pageNumber = 1) => {
-    try {
-      setLoading(true);
+  const loadUsers = useCallback(
+    async (search, pageNumber = 1) => {
+      try {
+        setLoading(true);
 
-      const response = await api.get('/search/users', {
-        params: {
-          q: search,
-          page: pageNumber,
-        },
-      });
+        if (newUser === '') {
+          throw new Error('You need add a username.');
+        }
 
-      const data = response.data.items;
+        const response = await api.get('/search/users', {
+          params: {
+            q: search,
+            page: pageNumber,
+          },
+        });
 
-      const newUsers = data;
+        const data = response.data.items;
 
-      localStorage.setItem('users', JSON.stringify(newUsers));
+        const newUsers = data;
 
-      if (search) {
-        const lastSearch = search;
+        localStorage.setItem('users', JSON.stringify(newUsers));
 
-        localStorage.setItem('search', JSON.stringify(lastSearch));
+        if (search) {
+          const lastSearch = search;
+
+          localStorage.setItem('search', JSON.stringify(lastSearch));
+        }
+
+        if (pageNumber) {
+          const lastPageNumber = pageNumber;
+
+          localStorage.setItem('page', JSON.stringify(lastPageNumber));
+        }
+
+        setUsers(newUsers);
+
+        setReg(response.data.total_count);
+
+        setError(false);
+      } catch (err) {
+        setError(true);
+
+        toast.error('There was an error when trying to load users.');
+      } finally {
+        setLoading(false);
       }
-
-      if (pageNumber) {
-        const lastPageNumber = pageNumber;
-
-        localStorage.setItem('page', JSON.stringify(lastPageNumber));
-      }
-
-      setUsers(newUsers);
-
-      setReg(response.data.total_count);
-
-      setError(false);
-    } catch (err) {
-      setError(true);
-
-      toast.error('There was an error when trying to load users.');
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+    },
+    [newUser]
+  );
 
   useEffect(() => {
     document.title = 'Github - Users | Pitang Challenge';
@@ -90,16 +97,18 @@ export default function Repository() {
 
     loadUsers(newUser);
 
-    const maxHistoryLenght = 5;
-    const pastSearchesStorage = JSON.parse(
-      localStorage.getItem('pastUserSearches')
-    );
-    const history = pastSearchesStorage || [];
-    const isHistoryMaxed = history.length === maxHistoryLenght;
-    const workingHistory = isHistoryMaxed ? history.slice(1) : history;
-    const updatedHistory = workingHistory.concat(newUser);
+    if (newUser) {
+      const maxHistoryLenght = 5;
+      const pastSearchesStorage = JSON.parse(
+        localStorage.getItem('pastUserSearches')
+      );
+      const history = pastSearchesStorage || [];
+      const isHistoryMaxed = history.length === maxHistoryLenght;
+      const workingHistory = isHistoryMaxed ? history.slice(1) : history;
+      const updatedHistory = workingHistory.concat(newUser);
 
-    localStorage.setItem('pastUserSearches', JSON.stringify(updatedHistory));
+      localStorage.setItem('pastUserSearches', JSON.stringify(updatedHistory));
+    }
   }
 
   function handleInputChange(e) {
@@ -156,7 +165,7 @@ export default function Repository() {
               <li key={user.id}>
                 <div>
                   <img src={user.avatar_url} alt={user.login} />
-                  <Link to={`/users/${user.login}`}>{user.login}</Link>
+                  <Link to={`/user/${user.login}`}>{user.login}</Link>
                 </div>
 
                 <span>
