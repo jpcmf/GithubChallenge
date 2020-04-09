@@ -131,8 +131,6 @@ export default function Main() {
     }
   }, []);
 
-  //eslint-disable-line
-
   function handleDelete(item) {
     const storage = localStorage.getItem('repositories');
     const storageArr = JSON.parse(storage);
@@ -171,7 +169,7 @@ export default function Main() {
                   </li>
                 ) : (
                   pastUserSearches.map((item, index) => (
-                    <li key={item}>
+                    <li key={index}>
                       <span className="position">{index + 1}</span>
                       <span className="item">{item}</span>
                     </li>
@@ -197,7 +195,7 @@ export default function Main() {
                   </li>
                 ) : (
                   pastRepositorySearches.map((item, index) => (
-                    <li key={item}>
+                    <li key={index}>
                       <span className="position">{index + 1}</span>
                       <span className="item">{item}</span>
                     </li>
