@@ -107,7 +107,3 @@ export const RepositoriesWrapper = styled.div`
     }
   }
 `;
-
-export const EmptyWrapper = styled.div`
-  text-align: center;
-`;

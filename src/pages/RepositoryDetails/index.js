@@ -1,10 +1,10 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { format } from 'date-fns';
 import Shimmer from 'react-shimmer-effect';
 
-import { FaFileCode } from 'react-icons/fa';
+import { FaFileCode, FaAngleLeft } from 'react-icons/fa';
 
 import Header from '~/components/Header';
 import Container from '~/components/Container';
@@ -61,10 +61,17 @@ export default function RepositoryDetails() {
       <Header />
 
       <Container>
-        <h1>
-          <FaFileCode />
-          About
-        </h1>
+        <div className="title-back">
+          <h1>
+            <FaFileCode />
+            About
+          </h1>
+          <div className="filter">
+            <Link to="/repositories">
+              <FaAngleLeft size={30} />
+            </Link>
+          </div>
+        </div>
 
         <DetailsWrapper>
           {loading && details ? (

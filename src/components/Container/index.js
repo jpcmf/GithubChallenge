@@ -61,6 +61,24 @@ const Container = styled.div`
     }
   }
 
+  .title-back {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .filter {
+      a {
+        display: block;
+        height: 30px;
+        width: 30px;
+
+        svg {
+          color: ${colors.brand};
+        }
+      }
+    }
+  }
+
   .title-group {
     align-items: center;
     display: flex;

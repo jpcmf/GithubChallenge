@@ -212,7 +212,7 @@ export const List = styled.ul`
 
       .most-actived__star {
         justify-content: space-between;
-        width: 45px;
+        width: 50px;
 
         svg {
           color: ${colors.brand};

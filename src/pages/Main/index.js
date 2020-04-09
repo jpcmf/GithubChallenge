@@ -141,6 +141,8 @@ export default function Main() {
     storageArr.splice(index, 1);
     localStorage.setItem('repositories', JSON.stringify(storageArr));
     setRepositories(storageArr);
+
+    toast.success('Repository removed successfully.');
   }
 
   return (
