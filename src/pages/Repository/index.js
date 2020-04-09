@@ -66,7 +66,7 @@ export default function Repository() {
       } catch (err) {
         setError(true);
 
-        toast.error('There was an error when trying to load users.');
+        toast.error('There was an error when trying to load repositories.');
       } finally {
         setLoading(false);
       }
@@ -75,7 +75,7 @@ export default function Repository() {
   );
 
   useEffect(() => {
-    document.title = 'Github - Repositories';
+    document.title = 'Github - Repositories | Pitang Challenge';
     window.scrollTo(0, 0);
   });
 
